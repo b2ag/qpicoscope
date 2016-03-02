@@ -185,7 +185,7 @@ dnl Memo: AC_ARG_WITH(package, help-string, [if-given], [if-not-given])
 
   # Find moc (Meta Object Compiler).
   AC_ARG_VAR([MOC], [Qt Meta Object Compiler command])
-  AC_PATH_TOOL([MOC], [moc moc-qt4 moc-qt3], [missing],
+  AC_PATH_TOOL([MOC], [moc-qt4 moc moc-qt3], [missing],
                 [$QT_PATH:$PATH:$tmp_qt_paths])
   if test x"$MOC" = xmissing; then
     AX_INSTEAD_IF([$4],
