@@ -21,16 +21,20 @@ AC_CHECK_HEADERS([pthread.h])
 libps2000_ok=yes
 libps2000a_ok=yes
 libps3000_ok=yes
+libps6000_ok=yes
 AC_CHECK_LIB([ps2000], [ps2000_open_unit],,[libps2000_ok=no])
 AC_CHECK_LIB([ps2000a], [ps2000aOpenUnit],,[libps2000a_ok=no])
 AC_CHECK_LIB([ps3000], [ps3000_open_unit],,[libps3000_ok=no])
-if test "x$libps2000_ok" = "xno"; then
-    if test "x$libps2000a_ok" = "xno"; then
-        if test "x$libps3000_ok" = "xno"; then
-        AC_MSG_ERROR([Need at least one of the following: libps2000, libps2000a or libps3000 from Picotech.\
+AC_CHECK_LIB([ps6000], [ps6000_open_unit],,[libps6000_ok=no])
+if ! { \
+  test "x$libps2000_ok" = "xno" || \
+  test "x$libps2000a_ok" = "xno" || \
+  test "x$libps3000_ok" = "xno" || \
+  test "x$libps6000_ok" = "xno" || \
+  false; \
+ }; then
+  AC_MSG_ERROR([Need at least one of the following: libps2000, libps2000a, libps3000 or libps6000 from Picotech.\
 It can be found either in lib directory or on Picotech's website.])
-        fi
-    fi
 fi
 #AC_CHECK_LIB([qwt-qt4], [_init],,AC_MSG_ERROR([This package needs libqwt-qt4]))
 #AC_CHECK_LIB([pthread], [pthread_create],,AC_MSG_ERROR([This package needs POSIX libpthread.]))
