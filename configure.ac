@@ -25,7 +25,7 @@ libps6000_ok=yes
 AC_CHECK_LIB([ps2000], [ps2000_open_unit],,[libps2000_ok=no])
 AC_CHECK_LIB([ps2000a], [ps2000aOpenUnit],,[libps2000a_ok=no])
 AC_CHECK_LIB([ps3000], [ps3000_open_unit],,[libps3000_ok=no])
-AC_CHECK_LIB([ps6000], [ps6000_open_unit],,[libps6000_ok=no])
+AC_CHECK_LIB([ps6000], [ps6000OpenUnit],,[libps6000_ok=no])
 if ! { \
   test "x$libps2000_ok" = "xno" || \
   test "x$libps2000a_ok" = "xno" || \

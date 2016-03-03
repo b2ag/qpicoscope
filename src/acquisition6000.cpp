@@ -141,32 +141,56 @@ void Acquisition6000::get_device_info(device_info_t* info)
 
     switch(unitOpened_m.model)
     {
-        case MODEL_PS3204:
-            snprintf(info->device_name, DEVICE_NAME_MAX, "PS3204");
+        case MODEL_PS6402:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6402");
             break;
-        case MODEL_PS3205:
-            snprintf(info->device_name, DEVICE_NAME_MAX, "PS3205"); 
+        case MODEL_PS6402A:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6402A");
             break;
-        case MODEL_PS3206:
-            snprintf(info->device_name, DEVICE_NAME_MAX, "PS3206"); 
+        case MODEL_PS6402B:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6402B");
             break;
-        case MODEL_PS3223:
-            snprintf(info->device_name, DEVICE_NAME_MAX, "PS3223"); 
+        case MODEL_PS6402C:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6402C");
             break;
-        case MODEL_PS3423:
-            snprintf(info->device_name, DEVICE_NAME_MAX, "PS3423"); 
+        case MODEL_PS6402D:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6402D");
             break;
-        case MODEL_PS3224:
-            snprintf(info->device_name, DEVICE_NAME_MAX, "PS3224"); 
+        case MODEL_PS6403:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6403");
             break;
-        case MODEL_PS3424:
-            snprintf(info->device_name, DEVICE_NAME_MAX, "PS3424"); 
+        case MODEL_PS6403A:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6403A");
             break;
-        case MODEL_PS3225:
-            snprintf(info->device_name, DEVICE_NAME_MAX, "PS3225"); 
+        case MODEL_PS6403B:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6403B");
             break;
-        case MODEL_PS3425:
-            snprintf(info->device_name, DEVICE_NAME_MAX, "PS3425"); 
+        case MODEL_PS6403C:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6403C");
+            break;
+        case MODEL_PS6403D:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6403D");
+            break;
+        case MODEL_PS6404:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6404");
+            break;
+        case MODEL_PS6404A:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6404A");
+            break;
+        case MODEL_PS6404B:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6404B");
+            break;
+        case MODEL_PS6404C:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6404C");
+            break;
+        case MODEL_PS6404D:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6404D");
+            break;
+        case MODEL_PS6407:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6407");
+            break;
+        case MODEL_PS6408:
+            snprintf(info->device_name, DEVICE_NAME_MAX, "PS6408");
             break;
         case MODEL_NONE:
             snprintf(info->device_name, DEVICE_NAME_MAX, "No device or device not supported"); 

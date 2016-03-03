@@ -60,7 +60,7 @@
 
 /* Definition of PS6000 driver routines on Linux */
 //#define DYNLINK
-#include <libps6000/ps6000.h>
+#include <libps6000-1.4/ps6000Api.h>
 #define __stdcall
 /* End of Linux-specific definitions */
 #endif
