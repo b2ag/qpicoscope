@@ -1168,6 +1168,310 @@ void Acquisition6000::collect_fast_streaming_triggered (void)
  ****************************************************************************/
 void Acquisition6000::get_info (void)
   {
+        int16_t i, r = 0;
+        char line [7];
+        int32_t variant;
+
+        if (unitOpened_m.handle) 
+        {
+                // info = 3 - PICO_VARIANT_INFO
+                ps6000GetUnitInfo(unitOpened_m.handle, line, sizeof (line), &r, 3);
+                variant = atoi(line);
+                memcpy(&(unitOpened_m.modelString),line,sizeof(unitOpened_m.modelString)==7?7:sizeof(unitOpened_m.modelString));
+                //To identify A or B model variants.....
+                if (strlen(line) == 4)                                                      // standard, not A, B, C or D, convert model number into hex i.e 6402 -> 0x6402
+                        variant += 0x4B00;
+                else
+                        if (strlen(line) == 5)                                              // A or B variant unit 
+                        {
+                                line[4] = toupper(line[4]);
+
+                                switch(line[4])
+                                {
+                                case 65: // i.e 6402A -> 0xA402
+                                        variant += 0x8B00;
+                                        break;
+                                case 66: // i.e 6402B -> 0xB402
+                                        variant += 0x9B00;
+                                        break;
+                                case 67: // i.e 6402C -> 0xC402
+                                        variant += 0xAB00;
+                                        break;
+                                case 68: // i.e 6402D -> 0xD402
+                                        variant += 0xBB00;
+                                        break;
+                                default:
+                                        break;
+                                }
+                        }
+
+                switch (variant)
+                {
+                case MODEL_PS6402:
+                        unitOpened_m.model             = MODEL_PS6402;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++) 
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6402A:
+                        unitOpened_m.model             = MODEL_PS6402A;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = FALSE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++) 
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6402B:
+                        unitOpened_m.model             = MODEL_PS6402B;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6402C:
+                        unitOpened_m.model             = MODEL_PS6402C;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6402D:
+                        unitOpened_m.model             = MODEL_PS6402D;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6403:
+                        unitOpened_m.model             = MODEL_PS6403;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++) 
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6403A:
+                        unitOpened_m.model             = MODEL_PS6403;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = FALSE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++) 
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6403B:
+                        unitOpened_m.model             = MODEL_PS6403B;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6403C:
+                        unitOpened_m.model             = MODEL_PS6403C;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6403D:
+                        unitOpened_m.model             = MODEL_PS6403D;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6404:
+                        unitOpened_m.model             = MODEL_PS6404;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++) 
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6404A:
+                        unitOpened_m.model             = MODEL_PS6404;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = FALSE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++) 
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6404B:
+                        unitOpened_m.model             = MODEL_PS6404B;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6404C:
+                        unitOpened_m.model             = MODEL_PS6404C;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6404D:
+                        unitOpened_m.model             = MODEL_PS6404D;
+                        unitOpened_m.firstRange = PS6000_50MV;
+                        unitOpened_m.lastRange = PS6000_20V;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_5V;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_1M;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6407:
+                        unitOpened_m.model             = MODEL_PS6407;
+                        unitOpened_m.firstRange = PS6000_100MV;
+                        unitOpened_m.lastRange = PS6000_100MV;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++) 
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_100MV;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_50R;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                        break;
+
+                case MODEL_PS6408:
+                        unitOpened_m.model             = MODEL_PS6408;
+                        unitOpened_m.firstRange = PS6000_100MV;
+                        unitOpened_m.lastRange = PS6000_100MV;
+                        unitOpened_m.channelCount = 4;
+                        unitOpened_m.AWG = TRUE;
+
+                        for (i = 0; i < PS6000_MAX_CHANNELS; i++)
+                        {
+                                unitOpened_m.channelSettings[i].range = PS6000_100MV;
+                                unitOpened_m.channelSettings[i].DCcoupled = PS6000_DC_50R;
+                                unitOpened_m.channelSettings[i].enabled = TRUE;
+                        }
+                break;
+
+                default:
+                        break;
+                }
+
+                // info = 4 - PICO_BATCH_AND_SERIAL
+                ps6000GetUnitInfo(unitOpened_m.handle, unitOpened_m.serial, sizeof (unitOpened_m.serial), &r, 4);
+        }
+}
+/*void Acquisition6000::get_info (void)
+  {
 
   char description [6][25]=  { "Driver Version","USB Version","Hardware Version",
                               "Variant Info","Serial", "Error Code" };
@@ -1350,7 +1654,7 @@ void Acquisition6000::get_info (void)
         unitOpened_m.noOfChannels = QUAD_SCOPE;   
     }
 }
-
+*/
 
 
 void Acquisition3000::set_sig_gen (e_wave_type waveform, long frequency)

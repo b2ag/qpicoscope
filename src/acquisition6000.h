@@ -119,27 +119,51 @@ private:
      */
     typedef enum {
         MODEL_NONE = 0,
-        MODEL_PS3204 = 3204,
-        MODEL_PS3205 = 3205,
-        MODEL_PS3206 = 3206,
-        MODEL_PS3223 = 3223,
-        MODEL_PS3423 = 3423,
-        MODEL_PS3224 = 3224,
-        MODEL_PS3424 = 3424,
-        MODEL_PS3225 = 3225,
-        MODEL_PS3425 = 3425
+        MODEL_PS6402  = 0x6402, //Bandwidth: 350MHz, Memory: 32MS, AWG
+        MODEL_PS6402A = 0xA402, //Bandwidth: 250MHz, Memory: 128MS, FG
+        MODEL_PS6402B = 0xB402, //Bandwidth: 250MHz, Memory: 256MS, AWG
+        MODEL_PS6402C = 0xC402, //Bandwidth: 350MHz, Memory: 256MS, AWG
+        MODEL_PS6402D = 0xD402, //Bandwidth: 350MHz, Memory: 512MS, AWG
+        MODEL_PS6403  = 0x6403, //Bandwidth: 350MHz, Memory: 1GS, AWG
+        MODEL_PS6403A = 0xA403, //Bandwidth: 350MHz, Memory: 256MS, FG
+        MODEL_PS6403B = 0xB403, //Bandwidth: 350MHz, Memory: 512MS, AWG
+        MODEL_PS6403C = 0xC403, //Bandwidth: 350MHz, Memory: 512MS, AWG
+        MODEL_PS6403D = 0xD403, //Bandwidth: 350MHz, Memory: 1GS, AWG
+        MODEL_PS6404  = 0x6404, //Bandwidth: 500MHz, Memory: 1GS, AWG
+        MODEL_PS6404A = 0xA404, //Bandwidth: 500MHz, Memory: 512MS, FG
+        MODEL_PS6404B = 0xB404, //Bandwidth: 500MHz, Memory: 1GS, AWG
+        MODEL_PS6404C = 0xC404, //Bandwidth: 350MHz, Memory: 1GS, AWG
+        MODEL_PS6404D = 0xD404, //Bandwidth: 350MHz, Memory: 2GS, AWG
+        MODEL_PS6407  = 0x6407, //Bandwidth: 1GHz, Memory 2GS, AWG
+        MODEL_PS6408  = 0x6408  //Bandwidth: 2GHz, Memory 2GS, AWG
     } MODEL_TYPE;
 
-    typedef struct
+    typedef struct tTriggerDirections {       
+        enum enPS6000ThresholdDirection channelA;
+        enum enPS6000ThresholdDirection channelB;
+        enum enPS6000ThresholdDirection channelC;
+        enum enPS6000ThresholdDirection channelD;
+        enum enPS6000ThresholdDirection ext;
+        enum enPS6000ThresholdDirection aux;
+    } TRIGGER_DIRECTIONS;
+    /*typedef struct
     {
         THRESHOLD_DIRECTION    channelA;
         THRESHOLD_DIRECTION    channelB;
         THRESHOLD_DIRECTION    channelC;
         THRESHOLD_DIRECTION    channelD;
         THRESHOLD_DIRECTION    ext;
-    } DIRECTIONS;
+    } DIRECTIONS;*/
 
-    typedef struct
+    typedef struct tPwq {
+        struct tPS6000PwqConditions * conditions;
+        int16_t nConditions;
+        enum enPS6000ThresholdDirection direction;
+        uint32_t lower;
+        uint32_t upper;
+        PS6000_PULSE_WIDTH_TYPE type;
+    } PWQ;
+    /*typedef struct
     {
         PWQ_CONDITIONS                    *    conditions;
         short                                                        nConditions;
@@ -147,18 +171,18 @@ private:
         unsigned long                                        lower;
         unsigned long                                        upper;
         PULSE_WIDTH_TYPE                    type;
-    } PULSE_WIDTH_QUALIFIER;
+    } PULSE_WIDTH_QUALIFIER;*/
 
 
-    typedef struct
+    /*typedef struct
     {
         PS6000_CHANNEL channel;
         float threshold;
         short direction;
         float delay;
-    } SIMPLE;
+    } SIMPLE;*/
 
-    typedef struct
+    /*typedef struct
     {
         short hysterisis;
         DIRECTIONS directions;
@@ -169,24 +193,37 @@ private:
         unsigned long totalSamples;
         short autoStop;
         short triggered;
-    } ADVANCED;
+    } ADVANCED;*/
 
 
-    typedef struct
+    /*typedef struct
     {
         SIMPLE simple;
         ADVANCED advanced;
-    } TRIGGER_CHANNEL;
+    } TRIGGER_CHANNEL;*/
 
     typedef struct {
         short DCcoupled;
         short range;
         short enabled;
-        short values [BUFFER_SIZE];
+        /*short values [BUFFER_SIZE];*/
     } CHANNEL_SETTINGS;
 
-
-    typedef struct  {
+    typedef struct {
+        int16_t handle;
+        MODEL_TYPE                              model;
+        char                                    modelString[8];
+        char                                    serial[10];
+        int16_t                                 complete;
+        int16_t                                 openStatus;
+        int16_t                                 openProgress;
+        PS6000_RANGE                    firstRange;
+        PS6000_RANGE                    lastRange;
+        int16_t                                 channelCount;
+        BOOL                                    AWG;
+        CHANNEL_SETTINGS        channelSettings [PS6000_MAX_CHANNELS];
+    } UNIT;
+    /*typedef struct  {
         short handle;
         MODEL_TYPE model;
         PS6000_RANGE firstRange;
@@ -201,7 +238,7 @@ private:
         short                hasAdvancedTriggering;
         short                hasFastStreaming;
         short                hasEts;
-    } UNIT_MODEL;
+    } UNIT_MODEL;*/
     /**
      * @brief private methods declarations
      */
