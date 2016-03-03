@@ -5,6 +5,7 @@ bin_PROGRAMS = QPicoscope
 QPicoscope_SOURCES = 	acquisition2000.cpp  \
 			acquisition2000a.cpp  \
 			acquisition3000.cpp  \
+			acquisition6000.cpp  \
 			acquisition.cpp  \
 			comborange.cpp  \
 			frontpanel.cpp  \
